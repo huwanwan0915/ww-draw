@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>光轴工坊 · 置物架设计器</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="brand-icon">⌘</span>光轴工坊<span class="brand-en">SHAFT STUDIO</span></a><div class="header-right"><span class="live-dot"></span> 参数化设计 <span class="version">DIY / 01</span></div></header>
+<main>
+<div class="page-heading"><div><div class="eyebrow">从尺寸到实物，让想法有迹可循</div><h1>我的光轴置物架<span>设计工作台</span></h1></div><button id="reset" class="button">↺ 恢复默认</button></div>
+<div class="workspace">
+<aside class="sidebar">
+<div class="sidebar-head"><b>设计参数</b><span>单位 mm</span></div>
+<form id="configForm" novalidate>
+<details open><summary><span><i>01</i> 层板与打孔</span><span class="chevron">⌄</span></summary><div class="section-content">
+<div class="preset-row"><button type="button" id="photoPreset">参考图二 · 置物架</button><button type="button" id="platePreset">参考图一 · 380×140</button></div>
+<div class="fields two"><label>层板长度 L<div class="input-unit"><input id="length" type="number" min="80" max="2400" step="1" value="600"><span>mm</span></div></label><label>层板宽度 W<div class="input-unit"><input id="width" type="number" min="60" max="1200" step="1" value="300"><span>mm</span></div></label><label>厚度 T<div class="input-unit"><input id="thickness" type="number" min="1" max="30" step="0.5" value="3"><span>mm</span></div></label><label>外角半径 R<div class="input-unit"><input id="radius" type="number" min="0" max="100" value="5"><span>mm</span></div></label></div>
+<label class="wide-field">层板材质<select id="material"><option value="white">白色板材</option><option value="steel">304 不锈钢</option><option value="acrylic">半透明亚克力</option><option value="wood">浅色木板</option></select></label>
+<div class="subsection"><span>四角对称通孔</span><span class="tag">4 × Φ</span></div>
+<div class="fields two"><label>通孔直径<div class="input-unit"><input id="hole" type="number" min="3" max="60" step="0.5" value="14"><span>mm</span></div></label><label>孔位距边基准<select id="holeMode"><option value="center">孔中心到板边</option><option value="edge">孔边缘到板边</option></select></label><label>左右边距 X<div class="input-unit"><input id="offsetX" type="number" min="1" max="500" step="0.5" value="22"><span>mm</span></div></label><label>前后边距 Y<div class="input-unit"><input id="offsetY" type="number" min="1" max="500" step="0.5" value="22"><span>mm</span></div></label></div>
+<p class="field-note" id="holeNote"></p></div></details>
+<details open><summary><span><i>02</i> 架体与层高</span><span class="chevron">⌄</span></summary><div class="section-content">
+<div class="fields two"><label>立柱光轴长度 H<div class="input-unit"><input id="height" type="number" min="200" max="3000" value="1200"><span>mm</span></div></label><label>层板数量<div class="input-unit"><input id="levels" type="number" min="2" max="8" step="1" value="3"><span>层</span></div></label><label>底层板面高度<div class="input-unit"><input id="bottom" type="number" min="20" max="2000" value="90"><span>mm</span></div></label><label>顶部光轴露出<div class="input-unit"><input id="top" type="number" min="0" max="500" value="60"><span>mm</span></div></label></div>
+<label class="wide-field">层高分布<select id="spacing"><option value="even">等距分层</option><option value="custom">逐层设置</option></select></label><div id="customLevels" class="fields two" hidden></div><p class="field-note">板面高度以立柱底端为零点；总高另计脚轮。</p>
+</div></details>
+<details open><summary><span><i>03</i> 光轴与十字夹</span><span class="chevron">⌄</span></summary><div class="section-content">
+<div class="fields two"><label>光轴直径<div class="input-unit"><input id="rod" type="number" min="4" max="40" step="0.5" value="12"><span>mm</span></div></label><label>夹具适配孔径<div class="input-unit"><input id="bore" type="number" min="4" max="40" step="0.5" value="12"><span>mm</span></div></label></div>
+<label class="wide-field">每层十字夹配置<select id="clampMode"><option value="double">每角 2 只 · 四边横杆</option><option value="single">每角 1 只 · 两根长横杆</option></select></label>
+<div class="fields two"><label>夹具体长度<div class="input-unit"><input id="clampLength" type="number" min="10" max="100" value="32"><span>mm</span></div></label><label>夹具体宽度<div class="input-unit"><input id="clampWidth" type="number" min="8" max="80" value="22"><span>mm</span></div></label><label>夹具体高度<div class="input-unit"><input id="clampHeight" type="number" min="8" max="60" value="16"><span>mm</span></div></label><label>上下夹具间隙<div class="input-unit"><input id="clampGap" type="number" min="0" max="30" value="2"><span>mm</span></div></label></div>
+<label class="wide-field">夹具颜色<select id="clampColor"><option value="silver">银色铝合金</option><option value="black">黑色铝合金</option></select></label><p class="field-note">横杆连接到立柱中心；杆件长度按两端各露出半个夹具体计算。</p>
+</div></details>
+<details><summary><span><i>04</i> 脚轮与显示</span><span class="chevron">⌄</span></summary><div class="section-content">
+<label class="switch-row">安装四只脚轮<input id="wheels" type="checkbox" checked></label><div class="fields two"><label>脚轮安装高度<div class="input-unit"><input id="wheelHeight" type="number" min="35" max="160" value="65"><span>mm</span></div></label><label>轮径<div class="input-unit"><input id="wheelDiameter" type="number" min="20" max="120" value="45"><span>mm</span></div></label></div>
+<label class="switch-row">显示尺寸标注<input id="dimensions" type="checkbox" checked></label><label class="switch-row">显示地面网格<input id="grid" type="checkbox" checked></label>
+</div></details>
+</form>
+<div class="sidebar-footer"><span class="live-dot"></span> 修改参数，自动更新图纸</div>
+</aside>
+<section class="preview">
+<div class="preview-toolbar"><div class="tabs" role="tablist" aria-label="预览内容"><button class="tab active" id="tab3d" role="tab" aria-selected="true" aria-controls="view3d" data-view="3d">立体效果</button><button class="tab" id="tabPlate" role="tab" aria-selected="false" aria-controls="viewPlate" data-view="plate">层板打孔图</button><button class="tab" id="tabBom" role="tab" aria-selected="false" aria-controls="viewBom" data-view="bom">材料清单</button></div><button id="export" class="button dark">↓ <span>导出图片</span></button></div>
+<div id="alerts" role="status" aria-live="polite" hidden></div>
+<div id="view3d" class="view-panel" role="tabpanel" aria-labelledby="tab3d">
+<div class="canvas-info"><span class="eyebrow">ASSEMBLY PREVIEW</span><span>装配效果预览</span></div>
+<div class="scene" id="scene"><svg id="rackSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 850" role="img" aria-label="可拖动旋转的光轴置物架装配效果图"></svg></div>
+<div class="view-controls"><div class="view-presets"><button data-angle="perspective" class="selected">透视</button><button data-angle="front">正视</button><button data-angle="side">侧视</button><button data-angle="top">俯视</button></div><div class="zoom-controls"><button id="zoomOut" aria-label="缩小">−</button><span id="zoomText">100%</span><button id="zoomIn" aria-label="放大">＋</button><button id="fit" aria-label="恢复视图">⤢</button></div></div>
+<div class="canvas-caption"><span><span class="mini-dot"></span> 拖动旋转 · 滚轮缩放</span><span id="overallSize"></span></div>
+</div>
+<div id="viewPlate" class="view-panel" role="tabpanel" aria-labelledby="tabPlate" hidden><div class="canvas-info"><span class="eyebrow">PLATE DETAIL</span><span>四角对称通孔 · 单位 mm</span></div><svg id="plateSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" role="img" aria-label="层板打孔尺寸图"></svg><div class="plate-caption" id="plateCaption"></div></div>
+<div id="viewBom" class="view-panel bom-panel" role="tabpanel" aria-labelledby="tabBom" hidden><div class="bom-title"><span class="eyebrow">BILL OF MATERIALS</span><h2>这张设计需要什么？</h2><p>数量与尺寸随配置实时更新，便于采购和沟通。</p></div><div id="bomTable"></div><p class="bom-note">杆件长度包含夹具两端伸出量。夹具为通用尺寸模型，实际下料前请结合所购夹具的孔位、安装余量和承重要求复核。</p><button id="exportCsv" class="button">↓ 导出材料清单 CSV</button></div>
+<div class="summary-strip"><div><span>层板</span><strong id="statBoards"></strong></div><div><span>光轴</span><strong id="statRods"></strong></div><div><span>十字夹</span><strong id="statClamps"></strong></div><div><span>板面间距</span><strong id="statSpacing"></strong></div></div>
+</section>
+</div>
+<footer class="page-footer"><span>光轴工坊 · 为你的空间，设计一件自己的作品</span><div><button id="saveConfig">保存配置</button><button id="loadConfig">载入配置</button><button id="exportSvg">导出 SVG</button><button id="print">打印</button></div></footer>
+<input id="configFile" type="file" accept="application/json,.json" hidden>
+<div id="toast" role="status" hidden></div>
+</main><script src="app.js"></script>
+</body></html>
